@@ -97,6 +97,7 @@ class Babil:
                 
                 return Book(book_data.get("isbn"), book_data.get("title"), book_data.get("page_size"), book_data.get("author"), book_data.get("price"))
             
+            
         except Exception:
             logging.info(f"Something went wrong during execution : {self.get_book.__name__} BABIL for query : {query}")
             logging.info(f"Exception traceback : {traceback.format_exc()}")
