@@ -27,7 +27,7 @@ class Babil:
             href=soup.find("div", {"class" : "products-content"}).find("a").get("href")
             
             logging.info(f"Execution of : {self.__get_book_href_babil.__name__} for query : {query} was successfull")
-            logging.info(f"HREF = {href}")
+
             return href
         except Exception:
             
