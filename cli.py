@@ -34,7 +34,7 @@ async def main():
                         break
                     print(book)
                 case 3:
-                    await asyncio.wait(operations.process_missing_info(), return_when=asyncio.ALL_COMPLETED)
+                    await operations.process_missing_info()
                     operations.update_csv()
                 case 4:
                     try:
