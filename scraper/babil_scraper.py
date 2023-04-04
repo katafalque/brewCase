@@ -20,7 +20,7 @@ class Babil:
             
             params = self.__get_params_babil(query)
             async with aiohttp.ClientSession() as session:
-                async with session.get("https://www.babil.com/search", params=params) as response:
+                async with session.get(f"{self.url}/search", params=params) as response:
                     response = await response.content.read()
             
             soup = BeautifulSoup(response,"html.parser")
@@ -43,7 +43,7 @@ class Babil:
             href = await self.__get_book_href_babil(query)
             if href:
                 async with aiohttp.ClientSession() as session:
-                    async with session.get(f"https://www.babil.com{href}") as response:
+                    async with session.get(f"{self.url}{href}") as response:
                         response = await response.content.read()
                 
                 logging.info(f"Execution of : {self.__get_book_page_babil.__name__} for query : {query} was successfull")

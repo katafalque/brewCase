@@ -21,7 +21,7 @@ class DR:
             
             params = self.__get_params_dr(query)
             async with aiohttp.ClientSession() as session:
-                async with session.get("https://www.dr.com.tr/search", params=params) as response:
+                async with session.get(f"{self.url}/search", params=params) as response:
                     response = await response.content.read()
             
             soup = BeautifulSoup(response,"html.parser")
