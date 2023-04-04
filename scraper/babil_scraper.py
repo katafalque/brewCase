@@ -95,9 +95,7 @@ class Babil:
                 
                 logging.info(f"Execution of : {self.get_book.__name__} BABIL for query : {query} was successfull")
                 
-                b = Book(book_data.get("isbn"), book_data.get("title"), book_data.get("page_size"), book_data.get("author"), book_data.get("price"))
-                print(b)
-                return b
+                return Book(book_data.get("isbn"), book_data.get("title"), book_data.get("page_size"), book_data.get("author"), book_data.get("price"))
             
         except Exception:
             logging.info(f"Something went wrong during execution : {self.get_book.__name__} BABIL for query : {query}")
