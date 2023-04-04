@@ -25,7 +25,7 @@ class csv_io:
             header = ['authors', 'title', 'price', 'isbn13', 'page-size']
             writer = csv.writer(file, delimiter=";", lineterminator="\n")
             writer.writerow(header)
-            writer.writerows(books)
+            writer.writerows([row if type(row) == list else ["","","","","Isbn produced no books."] for row in books])
     
     @staticmethod
     def row_to_book(row : list) -> Book:
