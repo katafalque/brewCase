@@ -42,7 +42,7 @@ class Operator:
         
     def __book_to_row(self, book : Book) -> list:
         if book:
-            return [book.author, book.title, book.price, book.isbn, book.price]
+            return [book.author, book.title, book.price, book.isbn, book.page_size]
         return False
         
     def get_book_info_by_isbn(self, isbn : str) -> Book:
