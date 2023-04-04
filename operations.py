@@ -22,7 +22,7 @@ class Operator:
     def __get_data_dict_isbn(self) -> dict:
         logging.info("Creating data dict keys = isbn..")
         data_dict_isbn = {}
-        for row in self.data[1:]:
+        for row in self.data:
             book = csv_io.row_to_book(row)
             data_dict_isbn[book.isbn] = book
         return data_dict_isbn
@@ -30,7 +30,7 @@ class Operator:
     def __get_data_dict_title(self) -> Book:
         logging.info("Creating data dict keys = title..")
         data_dict_title = {}
-        for row in self.data[1:]:
+        for row in self.data:
             book = csv_io.row_to_book(row)
             data_dict_title[book.title] = book
         return data_dict_title
