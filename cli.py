@@ -1,21 +1,22 @@
 from operations import Operator
 import sys
 import logging
+import asyncio
+import traceback
 
 
-def main():
-    logging.basicConfig(filename='myapp.log', level=logging.INFO)
-    operations = Operator("samples/books.csv")
-    print("*** Welcome to Book Data CLI ***")
-    while True:
-        print("-What would you like to do? Enter the number of the functionality.")
-        print("1 - Get book info from csv by ISBN.")
-        print("2 - Get book info from csv by Title.")
-        print("3 - Process missing info for all data.")
-        print("4 - Process missing info between lines.")
-        print("5 - See current data on the terminal.")
-        print("6 - Close the program.")
-        try:
+async def main():
+    try:
+        operations = Operator("samples/books.csv")
+        print("*** Welcome to Book Data CLI ***")
+        while True:
+            print("-What would you like to do? Enter the number of the functionality.")
+            print("1 - Get book info from csv by ISBN.")
+            print("2 - Get book info from csv by Title.")
+            print("3 - Process missing info for all data.")
+            print("4 - Process missing info between lines.")
+            print("5 - See current data on the terminal.")
+            print("6 - Close the program.")
             inp = int(input())
             match inp:
                 case 1:
@@ -33,14 +34,14 @@ def main():
                         break
                     print(book)
                 case 3:
-                    operations.process_missing_info()
+                    await asyncio.wait(operations.process_missing_info(), return_when=asyncio.ALL_COMPLETED)
                     operations.update_csv()
                 case 4:
                     try:
                         print(f"Enter start and end values betweeen 0 and {operations.book_count}")
                         start = int(input("Enter the start value.."))
                         end = int(input("Enter the end value.."))
-                        operations.process_missing_info(start = start, end = end)
+                        await operations.process_missing_info(start = start, end = end)
                     except:
                         print("Wrong input entered..")
                 case 5:
@@ -49,9 +50,10 @@ def main():
                     sys.exit()
                 case _:
                     print("You should enter an integer value between 1 and 6.")
-        except:
-            print("You should enter an integer value..")
+    except:
+            print(traceback.format_exc())
             
             
 if __name__ == '__main__':
-    main()
+    logging.basicConfig(filename='myapp.log', level=logging.INFO)
+    asyncio.run(main())
