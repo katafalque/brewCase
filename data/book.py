@@ -7,7 +7,7 @@ class Book:
         self.price = self.__edit_price(price)
     
     def __edit_isbn(self, isbn : str) -> str:
-        if type(isbn) == None:
+        if isbn is None:
             return ''
         if '-' in isbn:
             return isbn.replace('-', '')
