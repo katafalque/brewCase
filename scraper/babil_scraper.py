@@ -67,11 +67,26 @@ class Babil:
             if page:
                 parser = BeautifulSoup(page,"html.parser")
                 datas = parser.find("div", {"class", "col-lg-6"}).find_all("div", {"class" : "col-lg-8"})
-                page_size = str(datas[0].text).strip()
-                isbn = str(datas[-1].text).strip()
-                price = str(parser.find("div", {"class", "col-lg-7"}).find("span", {"class", "new-price"}).text).strip()
-                title = str(parser.find("div", {"class", "col-lg-12"}).find("h1").text).strip()
-                author = str(parser.find("div", {"class", "col-lg-12"}).find("h2").text).strip()
+                try:
+                    page_size = str(datas[0].text).strip()
+                except:
+                    page_size = ''
+                try:
+                    isbn = str(datas[-1].text).strip()
+                except:
+                    isbn = ''
+                try:    
+                    price = str(parser.find("div", {"class", "col-lg-7"}).find("span", {"class", "new-price"}).text).strip()
+                except:
+                    price = ''
+                try:
+                    title = str(parser.find("div", {"class", "col-lg-12"}).find("h1").text).strip()
+                except:
+                    title = ''
+                try:
+                    author = str(parser.find("div", {"class", "col-lg-12"}).find("h2").text).strip()
+                except:
+                    author = ''
                 
                 book_data = {"page_size" : page_size, "isbn" : isbn, "price" : price, "title" : title, "author" : author}
                 
