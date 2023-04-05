@@ -15,6 +15,7 @@ class Operator:
         self.data_dict_isbn = self.__get_data_dict_isbn()
         self.data_dict_title = self.__get_data_dict_title()
         self.book_count = len(self.data) - 1
+        logging.info(f"{self.data_dict_isbn}")
         
     def __load_data(self, file_path: str) -> list:
         logging.info("Loading data from csv..")
@@ -36,9 +37,6 @@ class Operator:
             book = csv_io.row_to_book(row)
             data_dict_title[book.title] = book
         return data_dict_title
-
-    def __have_missing_values(self, book : Book) -> bool:
-        return (book.author != '' and book.isbn != '' and book.price != '' and book.page_size != '' and book.title != '')
         
     def __book_to_row(self, book : Book) -> list:
         if book:
@@ -46,11 +44,11 @@ class Operator:
         return False
         
     def get_book_info_by_isbn(self, isbn : str) -> Book:
-        book = self.data_dict_isbn.get(isbn)
+        book = self.data_dict_isbn.get(isbn.strip())
         return book
     
     def get_book_info_by_title(self, title : str) -> Book:
-        book = self.data_dict_title.get(title)
+        book = self.data_dict_title.get(title.strip())
         return book
     
     async def process_missing_info(self, start : int = 0, end : int = 0):
@@ -61,7 +59,7 @@ class Operator:
         
         tasks = []
 
-        for row in self.data[start : end - 1]:
+        for row in self.data[start : end]:
             random_scraper_index = random.randint(0, 1)
             scraper = self.scrapers[random_scraper_index]
             book = csv_io.row_to_book(row)
